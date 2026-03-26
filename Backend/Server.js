@@ -10,7 +10,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 // import summarizeRouter from './Routes/summarizeRoutes.js';
-console.log("TEST - API KEY LOADED:", process.env.GOOGLE_API_KEY ? "YES" : "NO");
+console.log("TEST - API KEY LOADED:", process.env.GROQ_API_KEY ? "YES" : "NO");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
