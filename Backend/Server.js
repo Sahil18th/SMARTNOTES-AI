@@ -37,7 +37,7 @@ app.use(router);
 app.use(contactRouter);
 
 
-console.log("API KEY:", process.env.GOOGLE_API_KEY);
+console.log("API KEY:", process.env.GROQ_API_KEY);
 
 await mongoose.connect(process.env.MONGO_DB_API);
 
