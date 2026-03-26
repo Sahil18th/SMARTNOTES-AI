@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "http://localhost:4000/",
+  baseURL: "https://smartnotes-backend.onrender.com , http://localhost:4000/",                          
   withCredentials: true
 });
 
