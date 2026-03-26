@@ -13,10 +13,10 @@ dotenv.config();
 console.log("TEST - API KEY LOADED:", process.env.GOOGLE_API_KEY ? "YES" : "NO");
 
 const app = express();
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3000;
 
 app.use(cors({
-  origin: ["http://localhost:5173"],                    //,"https://pw-react-app-2025.onrender.com"            
+  origin: ["http://localhost:5173","https://smartnotes-frontend-d42o.onrender.com" ],                     
   methods:["GET","POST","PUT","DELETE"],
   credentials:true,
 }));
