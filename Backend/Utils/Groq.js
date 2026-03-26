@@ -101,34 +101,71 @@
 
 
 // Utils/groq.js
+// import Groq from "groq-sdk";
+// import dotenv from "dotenv";
+// dotenv.config();
+
+// const client = new Groq({ apiKey: process.env.GROQ_API_KEY });
+
+// console.log("ENV CHECK:", process.env.GROQ_API_KEY);
+
+// export const generateSummary = async (text) => {
+//   const prompt = promptGenerator(text);
+  
+//   try {
+//     const response = await client.chat.completions.create({
+//       model: "llama3-8b-8192",
+//       messages: [{ role: "user", content: prompt }],
+//     });
+    
+//     return response.choices[0].message.content; // ✅ extract text like this
+//   } catch (error) {
+//   console.error("FULL ERROR:", error.response?.data || error.message);
+//   throw error;
+// }
+// };
+
+// export const promptGenerator = (text) => {
+//   return `Summarize the following text in clear bullet points. Be concise and highlight the most important information:
+
+// "${text}"
+
+// Format the summary as bullet points starting with •`;
+// };
+
 import Groq from "groq-sdk";
 import dotenv from "dotenv";
 dotenv.config();
 
 const client = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
-console.log("ENV CHECK:", process.env.GROQ_API_KEY);
+// ❌ REMOVED: console.log("ENV CHECK:", process.env.GROQ_API_KEY);
 
 export const generateSummary = async (text) => {
+  if (!text?.trim()) throw new Error("Input text is required");
+  
   const prompt = promptGenerator(text);
   
   try {
     const response = await client.chat.completions.create({
-      model: "llama3-8b-8192",
+      model: "llama-3.3-70b-versatile", // ✅ updated from llama3-8b-8192
+      max_tokens: 512,
       messages: [{ role: "user", content: prompt }],
     });
     
-    return response.choices[0].message.content; // ✅ extract text like this
+    return response.choices[0].message.content;
   } catch (error) {
-  console.error("FULL ERROR:", error.response?.data || error.message);
-  throw error;
-}
+    console.error("FULL ERROR:", error.response?.data || error.message);
+    throw error;
+  }
 };
 
 export const promptGenerator = (text) => {
   return `Summarize the following text in clear bullet points. Be concise and highlight the most important information:
 
-"${text}"
+\`\`\`
+${text}
+\`\`\`
 
 Format the summary as bullet points starting with •`;
 };
