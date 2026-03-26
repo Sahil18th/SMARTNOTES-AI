@@ -120,9 +120,9 @@ export const generateSummary = async (text) => {
     
     return response.choices[0].message.content; // ✅ extract text like this
   } catch (error) {
-    console.error("Groq error:", error);
-    throw error;
-  }
+  console.error("FULL ERROR:", error.response?.data || error.message);
+  throw error;
+}
 };
 
 export const promptGenerator = (text) => {
