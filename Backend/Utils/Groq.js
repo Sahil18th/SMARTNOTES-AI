@@ -107,6 +107,8 @@ dotenv.config();
 
 const client = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
+console.log("ENV CHECK:", process.env.GROQ_API_KEY);
+
 export const generateSummary = async (text) => {
   const prompt = promptGenerator(text);
   
