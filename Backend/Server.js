@@ -24,10 +24,23 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
+// app.use(session({
+//     secret: 'mySecret',
+//     resave: false,
+//     saveUninitialized: false,
+// }));
+
+app.set('trust proxy', 1); // VERY IMPORTANT for Render
+
 app.use(session({
-    secret: 'mySecret',
-    resave: false,
-    saveUninitialized: false,
+  secret: 'mySecret',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    secure: true,        // required for HTTPS (Render)
+    httpOnly: true,
+    sameSite: "none"     // REQUIRED for cross-origin
+  }
 }));
 
 app.use(passport.initialize());

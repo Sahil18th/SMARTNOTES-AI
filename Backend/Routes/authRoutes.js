@@ -18,8 +18,7 @@ router.post('/login', passport.authenticate('local'), (req,res) =>
         res.json({message: "Logged in successfully!"});
     } catch (error) {
         res.status(401).json({error: "Invalid Email or Password"});
-    }
-    
+    }  
 });
 
 router.get('/logout', (req,res) =>
