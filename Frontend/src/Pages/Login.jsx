@@ -33,7 +33,7 @@ function Login() {
     const handleSignUp = async (e) => {
 
         e.preventDefault();
-        
+
         if (signUpPassword !== confirmPassword) {
             alert("Password do not match ❌")
         }
@@ -75,7 +75,25 @@ function Login() {
                                 <label htmlFor='password' className='block my-2'>Password</label>
                                 <input id='password' value={password} onChange={(e) => setPassword(e.target.value)} type='password' placeholder='Your Password' className='border rounded w-full p-2'></input>
 
-                                <button type='submit' disabled={loading} className='cursor-pointer w-full bg-gradient-to-l from-blue-800 to-blue-500  hover:bg-gradient-to-r from-blue-800 to-blue-500 p-2 px-10 rounded-xl mt-3 text-[#fff]' >{loading ? "Signing in..." : "Sign in"}</button>
+                                {/* <button type='submit' disabled={loading} className='cursor-pointer w-full bg-gradient-to-l from-blue-800 to-blue-500  hover:bg-gradient-to-r from-blue-800 to-blue-500 p-2 px-10 rounded-xl mt-3 text-[#fff]' >{loading ? "Signing in..." : "Sign in"}</button> */}
+                                <button
+                                    type="submit"
+                                    disabled={loading}
+                                    className={`w-full p-2 px-10 rounded-xl mt-3 text-white transition-all
+                                            ${loading
+                                            ? "bg-gray-400 cursor-not-allowed"
+                                            : "bg-gradient-to-l from-blue-800 to-blue-500 hover:bg-gradient-to-r cursor-pointer"
+                                        }`}
+                                >
+                                    {loading ? (
+                                        <span className="flex justify-center items-center gap-2">
+                                            <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                                            Signing in...
+                                        </span>
+                                    ) : (
+                                        "Sign in"
+                                    )}
+                                </button>
                                 <span className='my-3 block text-sm text-center'>Forgot password?</span>
                             </form>
                         ) : (
