@@ -11,12 +11,13 @@ function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
+    const [loading, setLoading] = useState(false)
 
     const navigate = useNavigate();
 
     const handleLogin = async (e) => {
         e.preventDefault();
-
+        setLoading(true);
         try {
             const res = await API.post('/login', { email, password });
 
@@ -26,6 +27,7 @@ function Login() {
         } catch (error) {
             alert("Login failed ❌", error.response?.data?.message);
         }
+        setLoading(false);
     }
 
     const handleSignUp = async (e) => {
@@ -73,7 +75,7 @@ function Login() {
                                 <label htmlFor='password' className='block my-2'>Password</label>
                                 <input id='password' value={password} onChange={(e) => setPassword(e.target.value)} type='password' placeholder='Your Password' className='border rounded w-full p-2'></input>
 
-                                <button type='submit' className='cursor-pointer w-full bg-gradient-to-l from-blue-800 to-blue-500  hover:bg-gradient-to-r from-blue-800 to-blue-500 p-2 px-10 rounded-xl mt-3 text-[#fff]' >Sign in</button>
+                                <button type='submit' disabled={loading} className='cursor-pointer w-full bg-gradient-to-l from-blue-800 to-blue-500  hover:bg-gradient-to-r from-blue-800 to-blue-500 p-2 px-10 rounded-xl mt-3 text-[#fff]' >{loading ? "Signing in..." : "Sign in"}</button>
                                 <span className='my-3 block text-sm text-center'>Forgot password?</span>
                             </form>
                         ) : (
