@@ -33,9 +33,11 @@ function Login() {
     const handleSignUp = async (e) => {
 
         e.preventDefault();
+        setLoading(true)
 
         if (signUpPassword !== confirmPassword) {
             alert("Password do not match ❌")
+            setLoading(false)
         }
 
         else {
@@ -46,6 +48,7 @@ function Login() {
             } catch (error) {
                 alert("User Already Exists!", error.response?.data?.message);
             }
+            setLoading(false)
         }
     }
 
@@ -111,7 +114,20 @@ function Login() {
                                 <label htmlFor='confirm' className='block my-2'>Confirm Password</label>
                                 <input id='confirm' value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} type='password' placeholder='Re-enter Password' className='border rounded w-full p-2'></input>
 
-                                <button type='submit' className='cursor-pointer w-full bg-gradient-to-l from-blue-800 to-blue-500  hover:bg-gradient-to-r from-blue-800 to-blue-500 p-2 px-10 rounded-xl mt-3 text-[#fff]'>Sign up</button>
+                                {/* <button type='submit' className='cursor-pointer w-full bg-gradient-to-l from-blue-800 to-blue-500  hover:c p-2 px-10 rounded-xl mt-3 text-[#fff]'>Sign up</button> */}
+                                <button type='submit' disabled={loading} className={`w-full p-2 px-10 rounded-xl mt-3 text-[#fff] transition-all
+                                    ${loading ? "bg-gray-400 cursor-not-allowed"
+                                        : "bg-gradient-to-l from-blue-800 to-blue-500 hover:bg-gradient-to-r from-blue-800 to-blue-500 cursor-pointer"
+                                    }`}>
+                                    {loading ? (
+                                        <span className='flex justify-center items-center gap-2'>
+                                            <span className='w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin'></span>
+                                            Signinng Up...
+                                        </span>
+                                    ) : (
+                                        "Sign Up"
+                                    )}
+                                </button>
                             </form>
                         )}
                     </div>
